@@ -107,23 +107,15 @@
                        placeholder="最高价格(万)" value="{{ request.GET.max_price }}">
             </div>
             
-            <!-- 排序 -->
-            <div class="col-md-2">
-                <select class="form-select" name="sort">
-                    <option value="">默认排序</option>
-                    <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>价格从低到高</option>
-                    <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>价格从高到低</option>
-                    <option value="area_asc" {% if request.GET.sort == 'area_asc' %}selected{% endif %}>面积从小到大</option>
-                    <option value="area_desc" {% if request.GET.sort == 'area_desc' %}selected{% endif %}>面积从大到小</option>
-                </select>
-            </div>
-            
-            <!-- 按钮 -->
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-primary w-100">应用筛选</button>
-            </div>
-            <div class="col-md-2">
-                <a href="{% url 'houses' %}" class="btn btn-secondary w-100">清除筛选</a>
+            <!-- 操作按钮 -->
+            <div class="sort-section">
+                <div>
+                    <label>排序：默认排序</label>
+                </div>
+                <div class="filter-actions">
+                    <button type="submit" class="btn btn-primary">应用筛选</button>
+                    <a href="{% url 'houses' %}" class="btn btn-secondary">清除筛选</a>
+                </div>
             </div>
         </form>
     </div>
