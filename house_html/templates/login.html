@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>用户登录</title>
+    <!-- 引入外部样式 -->
+    <link rel="stylesheet" href="{% static 'css/login_1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/messages.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <h2>登录</h2>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                <label>用户名:</label>
+                <input type="text" name="username" required>
+            </div>
+            <div>
+                <label>密码:</label>
+                <input type="password" name="password" required>
+            </div>
+            <button type="submit">登录</button>
+        </form>
+        <p>还没有账号? <a href="{% url 'register' %}">点击注册</a></p>
+        <a href="{% url 'index' %}" class="register-btn bg-blue-500 hover:bg-blue-600">返回主页</a>
+    </div>
+
+    <script>
+        // 消息系统JavaScript交互
+        document.addEventListener('DOMContentLoaded', function() {
+            const messages = document.querySelectorAll('.messages li');
+            
+            messages.forEach(function(message) {
+                // 添加关闭按钮
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'close-btn';
+                closeBtn.innerHTML = '×';
+                closeBtn.onclick = function() {
+                    message.classList.add('fade-out');
+                    setTimeout(() => message.remove(), 300);
+                };
+                message.appendChild(closeBtn);
+                
+                // 添加自动消失类
+                message.classList.add('auto-dismiss');
+                
+                // 5秒后自动消失
+                setTimeout(function() {
+                    if (message.parentNode) {
+                        message.classList.add('fade-out');
+                        setTimeout(() => {
+                            if (message.parentNode) {
+                                message.remove();
+                            }
+                        }, 300);
+                    }
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>
